@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mecânico Delivery - Cardápio de Serviços</title>
+    <style>
+        /* Estilos básicos para layout e responsividade */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        header {
+            text-align: center;
+            padding: 20px 10px;
+            background-color: #005c99;
+            color: white;
+        }
+        header img {
+            max-height: 80px;
+        }
+        .search-filter {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            background: #ffffff;
+            padding: 10px;
+        }
+        .search-filter input[type="text"], .search-filter select {
+            margin: 5px;
+            padding: 8px;
+            font-size: 1em;
+            width: 200px;
+        }
+        .services-category {
+            margin: 20px;
+            background: #fff;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .services-category h3 {
+            margin-top: 0;
+            text-decoration: underline;
+        }
+        .services-category label {
+            display: block;
+            margin: 5px 0;
+        }
+        .price {
+            font-weight: bold;
+            float: right;
+        }
+        #total-section {
+            margin: 20px;
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        #total-section p {
+            margin: 5px 0;
+        }
+        .note {
+            font-style: italic;
+            font-size: 0.9em;
+        }
+        footer {
+            text-align: center;
+            font-size: 0.9em;
+            color: #555;
+            background: #f1f1f1;
+            padding: 10px;
+            margin-top: 20px;
+        }
+        /* Estilo para impressão - esconder elementos desnecessários */
+        @media print {
+            body {
+                background-color: #fff;
+                color: #000;
+            }
+            header, footer, .search-filter, #print-btn {
+                display: none;
+            }
+        }
+        /* Responsivo: ajustar busca e filtro em telas menores */
+        @media (max-width: 600px) {
+            .search-filter {
+                flex-direction: column;
+                align-items: center;
+            }
+            .search-filter input[type="text"], .search-filter select {
+                width: 90%;
+            }
+            .price {
+                float: none;
+                display: block;
+                margin-top: 2px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <!-- Logotipo da empresa; substituir 'logo.png' pelo arquivo fornecido -->
+        <img src="logo.png" alt="Logotipo Mecânico Delivery">
+    </header>
+
+    <div class="search-filter">
+        <!-- Campo de busca por serviço -->
+        <input type="text" id="search" placeholder="Buscar serviço...">
+
+        <!-- Filtro por categoria -->
+        <select id="category">
+            <option value="">Todas as categorias</option>
+            <option>Revisão e Troca de Óleo</option>
+            <option>Freios</option>
+            <option>Suspensão e Direção</option>
+            <option>Elétrica e Bateria</option>
+            <option>Injeção e Combustível</option>
+            <option>Embreagem e Câmbio</option>
+        </select>
+
+        <!-- Campo de CEP para calcular deslocamento -->
+        <input type="text" id="cep" placeholder="Digite seu CEP">
+    </div>
+
+    <!-- Lista de serviços por categoria -->
+    <div id="services-list">
+        <div class="services-category" data-category="Revisão e Troca de Óleo">
+            <h3>Revisão e Troca de Óleo</h3>
+            <label><input type="checkbox" class="service-checkbox" data-price="120.00"> Revisão básica (1.0 a 1.6) <span class="price">R$ 120,00</span></label>
+            <label><input type="checkbox" class="service-checkbox" data-price="150.00"> Revisão completa (1.0 a 1.6) <span class="price">R$ 150,00</span></label>
+            <label><input type="checkbox" class="service-checkbox" data-price="80.00"> Troca de óleo (mão de obra) <span class="price">R$ 80,00</span></label>
+            <label><input type="checkbox" class="service-checkbox" data-price="120.00"> Troca de óleo + filtro (mão de obra) <span class="price">R$ 120,00</span></label>
+        </div>
+        <div class="services-category" data-category="Freios">
+            <h3>Freios</h3>
+            <label><input type="checkbox" class="service-checkbox" data-price="100.00"> Substituição de pastilhas de freio dianteiras <span class="price">R$ 100,00</span></label>
+            <label><input type="checkbox" class="service-checkbox" data-price="90.00"> Substituição de pastilhas de freio traseiras <span class="price">R$ 90,00</span></label>
+            <label><input type="checkbox" class="service-checkbox" data-price="50.00"> Teste e reparo do sistema de freio <span class="price">R$ 50,00</span></label>
+        </div>
+        <div class="services-category" data-category="Suspensão e Direção">
+            <h3>Suspensão e Direção</h3>
+            <label><input type="checkbox" class="service-checkbox" data-price="200.00"> Reparo de amortecedor dianteiro (unidade) <span class="price">R$ 200,00</span></label>
+            <label><input type="checkbox" class="service-checkbox" data-price="180.00"> Reparo de amortecedor traseiro (unidade) <span class="price">R$ 180,00</span></label>
+            <label><input type="checkbox" class="service-checkbox" data-price="120.00"> Alinhamento 3D <span class="price">R$ 120,00</span></label>
+            <label><input type="checkbox" class="service-checkbox" data-price="80.00"> Balanceamento (4 pneus) <span class="price">R$ 80,00</span></label>
+        </div>
+        <div class="services-category" data-category="Elétrica e Bateria">
+            <h3>Elétrica e Bateria</h3>
+            <label><input type="checkbox" class="service-checkbox" data-price="30.00"> Teste de bateria <span class="price">R$ 30,00</span></label>
+            <label><input type="checkbox" class="service-checkbox" data-price="50.00"> Troca de bateria (mão de obra) <span class="price">R$ 50,00</span></label>
+            <label><input type="checkbox" class="service-checkbox" data-price="100.00"> Reparo de fiação elétrica <span class="price">R$ 100,00</span></label>
+        </div>
+        <div class="services-category" data-category="Injeção e Combustível">
+            <h3>Injeção e Combustível</h3>
+            <label><input type="checkbox" class="service-checkbox" data-price="120.00"> Limpeza de bico injetor <span class="price">R$ 120,00</span></label>
+            <label><input type="checkbox" class="service-checkbox" data-price="60.00"> Substituição do filtro de combustível <span class="price">R$ 60,00</span></label>
+            <label><input type="checkbox" class="service-checkbox" data-price="80.00"> Diagnóstico eletrônico <span class="price">R$ 80,00</span></label>
+        </div>
+        <div class="services-category" data-category="Embreagem e Câmbio">
+            <h3>Embreagem e Câmbio</h3>
+            <label><input type="checkbox" class="service-checkbox" data-price="100.00"> Ajuste/correção de correia dentada <span class="price">R$ 100,00</span></label>
+            <label><input type="checkbox" class="service-checkbox" data-price="150.00"> Substituição da correia dentada <span class="price">R$ 150,00</span></label>
+            <label><input type="checkbox" class="service-checkbox" data-price="200.00"> Reparo de embreagem <span class="price">R$ 200,00</span></label>
+        </div>
+    </div>
+
+    <!-- Seção do total e aviso -->
+    <div id="total-section">
+        <p>Custo de deslocamento: R$ <span id="dist-cost">0,00</span></p>
+        <p><strong>Total: R$ <span id="total">0,00</span></strong></p>
+        <button id="print-btn">Imprimir Orçamento</button>
+        <p class="note">*Valores referentes à mão de obra. Peças não inclusas.* <a href="https://wa.me/5515998140957" target="_blank">(Posso te ajudar com as peças?)</a></p>
+    </div>
+
+    <footer>
+        Atendimento em Sorocaba e região.<br>
+        Alguns serviços podem necessitar de estrutura fixa no endereço base.<br>
+        Transparência, agilidade e comodidade no cuidado com seu carro.
+    </footer>
+
+    <!-- Scripts JavaScript para busca, filtro, cálculo e atualização de total -->
+    <script>
+        // Atualiza a lista de serviços exibidos com base na busca e categoria
+        function filterServices() {
+            var search = document.getElementById('search').value.toLowerCase();
+            var category = document.getElementById('category').value;
+            var categories = document.querySelectorAll('.services-category');
+            categories.forEach(function(cat) {
+                var catName = cat.getAttribute('data-category');
+                var showCategory = (!category || category === catName);
+                var serviceLabels = cat.querySelectorAll('label');
+                var anyVisible = false;
+                serviceLabels.forEach(function(label) {
+                    var text = label.textContent.toLowerCase();
+                    var match = text.includes(search);
+                    label.style.display = (showCategory && (search === '' || match)) ? 'block' : 'none';
+                    if(label.style.display === 'block') {
+                        anyVisible = true;
+                    }
+                });
+                // Exibir ou ocultar a categoria conforme há itens visíveis
+                cat.style.display = (showCategory && anyVisible) ? 'block' : 'none';
+            });
+            calculateTotal();
+        }
+
+        // Calcula o custo de deslocamento usando APIs (AwesomeAPI CEP e OSRM)
+        async function calculateDistance() {
+            var cep = document.getElementById('cep').value;
+            cep = cep.replace(/\\D/g, ''); // Remove caracteres não numéricos
+            if(cep.length !== 8) {
+                // CEP inválido ou incompleto
+                document.getElementById('dist-cost').innerText = '0,00';
+                calculateTotal();
+                return;
+            }
+            try {
+                // Obter lat/lng do CEP base (Sorocaba 18087808) e do CEP informado
+                var baseResponse = await fetch('https://cep.awesomeapi.com.br/json/18087808');
+                var baseData = await baseResponse.json();
+                var destResponse = await fetch('https://cep.awesomeapi.com.br/json/' + cep);
+                var destData = await destResponse.json();
+                var baseLat = parseFloat(baseData.lat);
+                var baseLon = parseFloat(baseData.lng);
+                var destLat = parseFloat(destData.lat);
+                var destLon = parseFloat(destData.lng);
+                // Chamada à API OSRM para calcular distância por rota (km)
+                var routeUrl = 'https://router.project-osrm.org/route/v1/driving/'
+                    + baseLon + ',' + baseLat + ';' + destLon + ',' + destLat
+                    + '?overview=false';
+                var routeResponse = await fetch(routeUrl);
+                var routeData = await routeResponse.json();
+                if(routeData.code === 'Ok' && routeData.routes.length > 0) {
+                    var distanceMeters = routeData.routes[0].distance;
+                    var distanceKm = distanceMeters / 1000.0;
+                    // Deslocamento ida e volta * valor por km
+                    var totalKm = distanceKm * 2;
+                    var cost = totalKm * 0.60;
+                    document.getElementById('dist-cost').innerText = cost.toFixed(2);
+                } else {
+                    document.getElementById('dist-cost').innerText = '0,00';
+                }
+            } catch (error) {
+                console.error('Erro ao calcular deslocamento:', error);
+                document.getElementById('dist-cost').innerText = '0,00';
+            }
+            calculateTotal();
+        }
+
+        // Calcula o valor total somando serviços selecionados e deslocamento
+        function calculateTotal() {
+            var total = 0;
+            // Soma preços dos serviços selecionados
+            document.querySelectorAll('.service-checkbox:checked').forEach(function(cb) {
+                total += parseFloat(cb.getAttribute('data-price'));
+            });
+            // Soma custo de deslocamento, se informado
+            var distCost = parseFloat(document.getElementById('dist-cost').innerText.replace(',', '.')) || 0;
+            total += distCost;
+            document.getElementById('total').innerText = total.toFixed(2);
+        }
+
+        // Eventos
+        document.getElementById('search').addEventListener('input', filterServices);
+        document.getElementById('category').addEventListener('change', filterServices);
+        // Atualiza total quando alguma checkbox é clicada
+        document.querySelectorAll('.service-checkbox').forEach(function(cb) {
+            cb.addEventListener('change', calculateTotal);
+        });
+        // Calcular deslocamento quando o CEP for digitado e desfocar
+        document.getElementById('cep').addEventListener('change', calculateDistance);
+        // Botão de imprimir
+        document.getElementById('print-btn').addEventListener('click', function() {
+            window.print();
+        });
+    </script>
+</body>
+</html>
