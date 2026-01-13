@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Cardápio de Serviços - Mecânico Delivery</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+:root{--blue:#005c99;--bg:#f8f9fa}
+body{font-family:Arial,Helvetica,sans-serif;margin:0;background:var(--bg);color:#222}
+
+header{
+  background:var(--blue);
+  text-align:center;
+  padding:20px;
+  color:#fff;
+}
+header img{
+  max-height:120px;
+  display:block;
+  margin:0 auto 10px;
+}
+
+.container{max-width:980px;margin:18px auto;padding:16px}
+
+.controls{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center;
+  margin-bottom:12px
+}
+.controls input[type=text]{
+  padding:10px;
+  border-radius:8px;
+  border:1px solid #ccc;
+  width:260px
+}
+
+.services-category{
+  background:#fff;
+  border-radius:8px;
+  padding:14px;
+  margin-bottom:12px;
+  box-shadow:0 1px 3px rgba(0,0,0,.06)
+}
+
+h2{margin:6px 0 12px}
+
+label{
+  display:flex;
+  justify-content:space-between;
+  padding:6px 0;
+  border-bottom:1px dashed #eee
+}
+
+textarea{
+  width:100%;
+  padding:10px;
+  border-radius:8px;
+  border:1px solid #ccc;
+  margin-top:8px
+}
+
+.total-box{
+  background:#fff;
+  border-radius:8px;
+  padding:14px;
+  margin-top:12px;
+  box-shadow:0 1px 3px rgba(0,0,0,.06)
+}
+
+.big-total{font-size:18px;font-weight:700}
+
+.wa-btn{
+  display:inline-block;
+  background:#25d366;
+  color:#fff;
+  padding:12px 16px;
+  border-radius:8px;
+  text-decoration:none;
+  font-weight:700;
+  margin-top:10px
+}
+
+footer{
+  margin-top:16px;
+  font-size:13px;
+  color:#444;
+  text-align:center;
+  padding:14px
+}
+
+@media(max-width:720px){
+  .controls input[type=text]{width:100%}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <img src="enhanced_logo.png" alt="Mecânico Delivery">
+  <div>Atendimento Sorocaba e Região</div>
+  <div>Faça um orçamento ou tire suas dúvidas, sem compromisso.</div>
+</header>
+
+<div class="container">
+
+<!-- DADOS DO VEÍCULO -->
+<div class="services-category">
+  <h2>Dados do Veículo</h2>
+  <input type="text" id="veiculo" placeholder="Veículo">
+  <input type="text" id="ano" placeholder="Ano">
+  <input type="text" id="motor" placeholder="Motor">
+</div>
+
+<!-- CEP -->
+<div class="controls">
+  <input type="text" id="cep" placeholder="Digite seu CEP para calcular deslocamento">
+  <button id="calcDistBtn">Calcular Distância</button>
+  <div id="distSummary">Distância: — km · Custo deslocamento: R$ 0,00</div>
+</div>
+
+<!-- SINTOMAS -->
+<div class="services-category">
+  <h2>Qual sintoma do seu veículo?</h2>
+  <label><span><input type="checkbox" class="sintoma"> Barulhos motor</span></label>
+  <label><span><input type="checkbox" class="sintoma"> Barulhos roda</span></label>
+  <label><span><input type="checkbox" class="sintoma"> Vazamento de óleo</span></label>
+  <label><span><input type="checkbox" class="sintoma"> Vazamento líquido arrefecimento</span></label>
+  <label><span><input type="checkbox" class="sintoma"> Carro não dá partida</span></label>
+  <label><span><input type="checkbox" class="sintoma"> Motor não funciona</span></label>
+  <label><span><input type="checkbox" class="sintoma"> Motor ferveu</span></label>
+  <label><span><input type="checkbox" class="sintoma"> Carro morrendo</span></label>
+  <textarea id="descricao" placeholder="Descreva o problema"></textarea>
+</div>
+
+<!-- SERVIÇOS (TODOS MANTIDOS) -->
+<div class="services-category">
+<h2>Serviços Eletroeletrônicos Automotivos</h2>
+<label><span><input type="checkbox" class="service" data-price="60"> Diagnóstico via scanner automotivo</span><span>R$ 60</span></label>
+<label><span><input type="checkbox" class="service" data-price="100"> Sensores (substituição/teste)</span><span>R$ 100</span></label>
+<label><span><input type="checkbox" class="service" data-price="100"> Atuadores (substituição/teste)</span><span>R$ 100</span></label>
+<label><span><input type="checkbox" class="service" data-price="60"> Diagnóstico bateria e alternador</span><span>R$ 60</span></label>
+</div>
+
+<div class="services-category">
+<h2>Sistemas de Carga e Partida</h2>
+<label><span><input type="checkbox" class="service" data-price="100"> Troca de motor de arranque</span><span>R$ 100</span></label>
+<label><span><input type="checkbox" class="service" data-price="100"> Troca de alternador</span><span>R$ 100</span></label>
+<label><span><input type="checkbox" class="service" data-price="60"> Troca de bateria</span><span>R$ 60</span></label>
+</div>
+
+<div class="services-category">
+<h2>Suspensão, Direção e Freios</h2>
+<label><span><input type="checkbox" class="service" data-price="100"> Troca de bandeja ou buchas</span><span>R$ 100</span></label>
+<label><span><input type="checkbox" class="service" data-price="100"> Troca de terminais e pivôs</span><span>R$ 100</span></label>
+<label><span><input type="checkbox" class="service" data-price="100"> Barra estabilizadora e bieletas</span><span>R$ 100</span></label>
+<label><span><input type="checkbox" class="service" data-price="250"> Manutenção caixa de direção</span><span>R$ 250</span></label>
+</div>
+
+<div class="services-category">
+<h2>Motores e Transmissão</h2>
+<label><span><input type="checkbox" class="service" data-price="350"> Troca de embreagem</span><span>R$ 350</span></label>
+<label><span><input type="checkbox" class="service" data-price="350"> Retífica de cabeçote</span><span>R$ 350</span></label>
+<label><span><input type="checkbox" class="service" data-price="1200"> Retífica completa de motor</span><span>R$ 1200</span></label>
+</div>
+
+<div class="total-box">
+<p>Custo deslocamento: R$ <span id="dist-cost">0,00</span></p>
+<p class="big-total">Total: R$ <span id="total">0,00</span></p>
+
+<a id="sendWa" class="wa-btn" target="_blank">📲 Enviar orçamento pelo WhatsApp</a>
+
+<p style="font-size:13px;margin-top:8px">
+Precisa de ajuda, tem dúvidas sobre seu veículo, orçamentos ou peças, entre em contato pelo link abaixo, que ficarei feliz por atendê-lo.
+</p>
+</div>
+
+<footer>
+Atendimento em Sorocaba e região.<br>
+Transparência, agilidade e comodidade no cuidado com seu carro.
+</footer>
+
+</div>
+
+<script>
+const BASE_CEP='18087-808';
+const PRICE_PER_KM=0.60;
+const GOOGLE_API_KEY='SUA_CHAVE_AQUI';
+
+const services=document.querySelectorAll('.service');
+const totalEl=document.getElementById('total');
+const distCostEl=document.getElementById('dist-cost');
+const waBtn=document.getElementById('sendWa');
+
+function format(v){return v.toLocaleString('pt-BR',{minimumFractionDigits:2})}
+
+function calcServices(){
+  let s=0;
+  services.forEach(c=>{if(c.checked)s+=Number(c.dataset.price)});
+  return s;
+}
+
+function updateTotal(){
+  const dist=parseFloat(distCostEl.innerText.replace(',','.'))||0;
+  const total=calcServices()+dist;
+  totalEl.innerText=format(total);
+  buildMsg(total);
+}
+
+async function calcDist(){
+  const cep=document.getElementById('cep').value.replace(/\D/g,'');
+  if(cep.length!==8){alert('CEP inválido');return}
+  const url=`https://maps.googleapis.com/maps/api/distancematrix/json?origins=${BASE_CEP}&destinations=${cep}&key=${GOOGLE_API_KEY}`;
+  const r=await fetch(url);
+  const j=await r.json();
+  const km=j.rows[0].elements[0].distance.value/1000;
+  const kmTotal=km*2;
+  const cost=kmTotal*PRICE_PER_KM;
+  document.getElementById('distSummary').innerText=`Distância: ${kmTotal.toFixed(1)} km · Custo deslocamento: R$ ${format(cost)}`;
+  distCostEl.innerText=format(cost);
+  updateTotal();
+}
+
+function buildMsg(total){
+  let msg=`*Orçamento Mecânico Delivery*%0A`;
+  msg+=`Veículo: ${veiculo.value}%0A`;
+  msg+=`Ano: ${ano.value}%0A`;
+  msg+=`Motor: ${motor.value}%0A%0A`;
+  msg+=`*Sintomas:*%0A`;
+  document.querySelectorAll('.sintoma:checked').forEach(s=>msg+=`- ${s.parentNode.innerText}%0A`);
+  msg+=`Descrição: ${descricao.value}%0A%0A`;
+  msg+=`*Serviços:*%0A`;
+  services.forEach(s=>{if(s.checked)msg+=`- ${s.parentNode.innerText}%0A`});
+  msg+=`%0A*Total:* R$ ${format(total)}`;
+  waBtn.href=`https://wa.me/5515998140957?text=${msg}`;
+}
+
+services.forEach(s=>s.addEventListener('change',updateTotal));
+document.getElementById('calcDistBtn').addEventListener('click',calcDist);
+</script>
+
+</body>
+</html>
